@@ -1,0 +1,55 @@
+import mercado.*
+import plantas.*
+import hector.*
+import wollok.game.*
+
+program farmvilleGame {
+	const trigo = new Trigo()
+	const tomaco = new Tomaco()
+	const maiz = new Maiz()
+	
+	const _COTO = new Mercado()
+	_COTO.oro(1000)
+	
+	const _JUMBO = new Mercado()
+	_JUMBO.oro(500)
+	
+	//CONFIG
+	game.title("Farmville")
+	game.height(9)
+	game.width(9)
+	game.ground("ground.png")
+	
+	
+	
+	
+	//VISUALES
+	game.addVisual(hector)
+	game.addVisualIn(_COTO,game.at(1,1))
+	game.addVisualIn(_JUMBO,game.at(4,1))
+	
+	//COLISIONES
+	//Ninguna! Se hace todo sin usar colisiones ;)
+	
+	
+	//CONTROLES
+	keyboard.up().onPressDo { hector.move(hector.position().up(1)) }
+	keyboard.down().onPressDo { hector.move(hector.position().down(1)) }
+	keyboard.left().onPressDo { hector.move(hector.position().left(1)) }
+	keyboard.right().onPressDo { hector.move(hector.position().right(1)) }
+	
+	
+	keyboard.m().onPressDo { hector.sembrar(maiz) }
+	keyboard.t().onPressDo { hector.sembrar(trigo) }	
+	keyboard.o().onPressDo { hector.sembrar(tomaco) }
+	
+	keyboard.r().onPressDo { hector.regar() }
+	keyboard.c().onPressDo { hector.cosechar() }
+	keyboard.v().onPressDo { hector.vender() }
+	
+	keyboard.space().onPressDo { hector.queTengoEnMiInventario() }
+
+//	keyboard.z().onPressDo { game.say(hector, hector.hayMercado())} //PARA TESTS
+	
+	game.start()
+}
